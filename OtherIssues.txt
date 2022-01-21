@@ -1,0 +1,6 @@
+Other issues
+
+The acceptance criteria does not specify what a POST to /hash should return.
+Commands for examples in Windows are not correct (at least for my configuration).  See test cases for correct syntax
+It's not specified, but I would ask if it's desired that the average time display the units (ms).
+/stats shows completed hashes not ones inprogress (not an error per se, but worth noting).
