@@ -1,0 +1,141 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Broken-hashserve",
+		"_postman_id": "54418b8e-7f8c-5164-9656-777fda3f089a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST /hash password:angrymonkey",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"1\");",
+							"",
+							"tests[\"Response time is greater than 5s\"] = responseTime > 5000;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://127.0.0.1:8088/hash",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"password\":\"12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Base64 Encoded Password /hash/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Body is correct\"] = responseBody === \"oQMqxQbpn7+2e0HHqCjCdwSs/Jyb81hRwTVanAeNeiYoY7YBM4e+2Faz9SH7lBCvFEtCHraAgWuMYl/qegwn2g\";",
+							"",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://127.0.0.1:8088/hash/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Total Requests correct\"] = responseBody.has(\"TotalRequests\\\":1\");",
+							"",
+							"tests[\"Average Time is nonzero\"] = responseBody.match(/.*AverageTime\":([^0])}/);",
+							"",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://127.0.0.1:8088/stats",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    'password': 'angrymonkey'\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /hash shutdown",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://127.0.0.1:8088/hash",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "shutdown"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
